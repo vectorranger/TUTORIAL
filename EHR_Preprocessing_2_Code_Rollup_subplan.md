@@ -207,7 +207,7 @@ Location: `processed_data/step4_rolledup_finaldata/{DataType}/rolledup_batch{N}.
 - [x] Remove all absolute paths → single `base_dir` with relative path
 - [x] Add Goal statement at top
 - [x] Add recap of previous notebook
-- [ ] Add external notebook links at start and end
+- [x] Add external notebook links at start and end
 - [x] Break 90+ line function cell (cell 28) into teach-then-abstract flow
 - [x] Enforce sandwich format on all code cells
 - [x] Enforce one logical step per code cell
