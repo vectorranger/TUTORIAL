@@ -7,7 +7,7 @@ This is an **EHR (Electronic Health Record) Preprocessing Tutorial** using MIMIC
 
 ## Notebook Pipeline
 
-1. **Getting_Started** - Workspace setup, MIMIC-IV data download/unzip, data exploration and summarization
+1. **Getting_Started** -  MIMIC-IV data download/unzip, data exploration and summarization
 2. **1_Data_Cleaning** - Assess missingness, filter columns, standardize schema , remove duplicates. Processes in patient-level batches
 3. **2_Code_Rollup** - Map granular EHR codes to standardized parent codes 
 4. **3_Natural_Language_Processing** - Convert clinical notes to UMLS CUI codes using dictionary-based NLP (petehr library). 
