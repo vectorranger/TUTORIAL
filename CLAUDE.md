@@ -5,8 +5,17 @@ This file provides strict guidance to Claude Code (claude.ai/code) when working 
 ## Project Overview
 This is an **EHR (Electronic Health Record) Preprocessing Tutorial** using MIMIC-IV 3.1 data. It consists of a series of Jupyter notebooks walking through the end-to-end process of cleaning, standardizing, and analyzing clinical data for research purposes. The author is Vidul Ayakulangara Panickan.
 
+## Notebook Pipeline
+
+1. **Getting_Started** - Workspace setup, MIMIC-IV data download/unzip, data exploration and summarization
+2. **1_Data_Cleaning** - Assess missingness, filter columns, standardize schema , remove duplicates. Processes in patient-level batches
+3. **2_Code_Rollup** - Map granular EHR codes to standardized parent codes 
+4. **3_Natural_Language_Processing** - Convert clinical notes to UMLS CUI codes using dictionary-based NLP (petehr library). 
+5. **4_Cohort_Creation** - Define patient cohorts, extract and aggregate data into patient-level count matrices for both codified and NLP features
+
 ## Project Role
 You are generating a world-class, beginner-friendly EHR data processing and NLP tutorial. In all interactions and commits, be concise, direct, and technically precise. Maintain readable, grammatically correct prose for all plain English explanations, but avoid fluff. 
+
 
 ## Infrastructure & Setup Rules
 * Write download scripts handling PhysioNet authentication (e.g., `wget` with credential flags or the `wfdb` package).
@@ -40,3 +49,27 @@ You are generating a world-class, beginner-friendly EHR data processing and NLP 
 * Demonstrate longitudinal to cross-sectional transformations using `groupby` and `pivot_table`.
 * Calculate exact, highly specific metrics (e.g., answering "how many times did each specific CUI appear for a patient in a given month?").
 * Explain all chart outputs and matrix results in plain English.
+
+## State Management & Context Handoff Rules
+Because this pipeline spans multiple notebooks with evolving schemas, you MUST rely on `UPDATE_TRACK.md` for state tracking to avoid context degradation.
+* **Initialization:** At the start of any prompt or session, silently read `UPDATE_TRACK.md` to understand the current progress, upstream schema dependencies, and active notebook.
+* **Completion Protocol:** When you finish processing a notebook according to its `[Notebook name]_subplan.md`, you must update `UPDATE_TRACK.md` by:
+    1. Adding a high-level summary of the transformations applied.
+    2. Documenting the exact schema handoff (final DataFrame shapes, new column names, and data types).
+    3. Marking the notebook's subplan with `[x]`.
+    4. Pushing to Github
+* **Context Wipe Enforcement:** After updating `UPDATE_TRACK.md`, you must STOP execution entirely and output the following exact message to the user: *"Notebook complete and tracker updated. Please run `/clear` in your terminal to wipe my context window before we begin the next notebook."*
+* **Resumption:** When the user provides the next prompt after a `/clear`, you must load the newly updated schemas from `UPDATE_TRACK.md` before writing any new downstream code.
+
+## Subplan Initiation Trigger
+When the user says "create [Notebook Name] Subplan", you must:
+1.  **Enter Plan Mode:** Create a temporary file called `[Notebook Name]_subplan.md`.
+2.  Read the notebook, understand the content, structure of the notebook
+3. **Brainstorm:** Ask me clarifying questions about the target audience, setup requirements, and any gaps in the current draft. 
+4.  **Propose a logical flow:** Outline a new structure on how the content should be organized for better clarity and understand for new users
+5. Ensure the refactored notebook sticks to the best practcies mentions in CLAUDE.md for this project.
+5. After a plan is devised, go through the plan again and list any unresolved questions to answer
+6. **Wait for Approval:** Present the plan to the user and wait for a "Go" before writing any code.
+7. Make a checklist of changes, updates need to be made.
+8. As updates are being made, keep track of it by adding [X] next to it
+9. After each update, push to Github
