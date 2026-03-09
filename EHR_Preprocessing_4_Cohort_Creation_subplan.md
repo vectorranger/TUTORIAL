@@ -131,4 +131,4 @@ Saved to: `processed_data/step5_cohort_aggregateddata/codified/` and `.../nlp/`
 - [x] `df.shape` printed around merges/dedups
 - [x] No for-loops on DataFrames (only for I/O batch loading)
 - [x] Output CSVs include subject_id as a column
-- [ ] UPDATE_TRACK.md updated with schema handoff
+- [x] UPDATE_TRACK.md updated with schema handoff
