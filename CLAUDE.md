@@ -23,6 +23,7 @@ You are generating a world-class, beginner-friendly EHR data processing and NLP 
 * Use phrases like "We do this because…", "Notice that…", "This tells us…" to connect code to understanding.
 * Avoid jargon without definition. When a technical term first appears, define it in one sentence before using it in code.
 * Write transitions between sections so the reader understands how each step builds on the last.
+* **Logical flow check:** Ensure the reader is never overwhelmed or lost. Front-load only the information needed for the next step — move comprehensive reference material to appendices or separate notebooks. Keep explanatory sections short and focused before the first line of code. When presenting tables or lists, include only the items the notebook actually uses.
 
 ## Code Refactoring Rules
 * **Teach then abstract:** When introducing a new operation, first walk through each step inline with a concrete example, then wrap the proven steps into a reusable function. Never show a function before the reader has seen the logic it encapsulates.
